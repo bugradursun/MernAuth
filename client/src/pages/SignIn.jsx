@@ -3,16 +3,18 @@
 import { useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-
+  //testhesap@gmail.com
+  //test123
   const handleSubmit = async (e) => {
     e.preventDefault(); //prevent refreshing page when we submit
     try {
@@ -31,6 +33,7 @@ export default function SignIn() {
         setError(true);
         return;
       }
+      navigate("/");
     } catch (error) {
       setLoading(false);
       setError(true);
