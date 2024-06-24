@@ -35,3 +35,19 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * https://tugrulbayrak.medium.com/jwt-json-web-tokens-nedir-nasil-calisir-5ca6ebc1584a
+ * authentication : kimlik dogrulama
+ * authorization:sisteme giris icin yetki kontrolu
+ * Bir kez authentication yapıldıktan sonra atılan her istekte authorization işlemi yapilir
+ * JWT: Json web token is an open standart compact and selfcontained way
+ * for securely transmitting information between parties as a JSON object
+ *
+ */
+
+//signin:
+// 1)send email and password as req
+// 2)fetch validUser from db, fetch password
+// 3)compare validPassword with crypted password
+// 4) create token
