@@ -83,6 +83,10 @@ export const google = async (req, res, next) => {
   }
 };
 
+export const signout = (req, res) => {
+  res.clearCookie("access_token").status(200).json("Signout success!");
+};
+
 /**
  * https://tugrulbayrak.medium.com/jwt-json-web-tokens-nedir-nasil-calisir-5ca6ebc1584a
  * authentication : kimlik dogrulama
