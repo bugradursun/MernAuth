@@ -20,13 +20,14 @@ mongoose
   });
 
 const app = express();
-
+//to deploy our app
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "/client/dist")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
-
+//deploy our app
+//with using render.com we can deploy our application with connecting via github
 app.use(express.json());
 
 app.use(cookieParser());
