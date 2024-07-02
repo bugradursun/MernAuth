@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useRef } from "react";
 import {
   getDownloadURL,
   getStorage,
@@ -17,7 +18,7 @@ export default function Profile() {
   const [imagePercent, setImagePercent] = useState(0);
   const [imageError, setImageError] = useState(false);
   const [formData, setFormData] = useState({});
-  console.log("form data:", formData);
+
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -31,18 +32,23 @@ export default function Profile() {
     const fileName = new Date().getTime() + image.name;
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, image);
-    uploadTask.on("state_changed", (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      setImagePercent(Math.round(progress));
-    });
-    (error) => {
-      setImageError(true);
-    };
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        setFormData({ ...formData, profilePicture: downloadURL });
-      });
-    };
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setImagePercent(Math.round(progress));
+      },
+      (error) => {
+        setImageError(true);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, profilePicture: downloadURL })
+        );
+      }
+    );
   };
   return (
     <div className="p-3 max-w-lg mx-auto">
